@@ -9,7 +9,8 @@ web:
     - php
 
 php:
-  image: nmcteam/php56
+  image: netzkontrast/php7
   volumes:
     - ./src/php-fpm.conf:/etc/php5/fpm/php-fpm.conf
     - ./src:/var/www
+    - ./src/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
