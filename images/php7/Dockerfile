@@ -24,9 +24,15 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 # PHP-FPM packages need a nudge to make them docker-friendly
 COPY overrides.conf /etc/php/7.1/fpm/pool.d/z-overrides.conf
 
+COPY php-ini-overrides.ini /etc/php/7.1/fpm/conf.d/99-overrides.ini
+
 # PHP-FPM has really dirty logs, certainly not good for dockerising
 # The following startup script contains some magic to clean these up
 COPY php-fpm-startup /usr/bin/php-fpm
+
+ADD src /var/www
+
+
 CMD /usr/bin/php-fpm
 
 # Open up fcgi port
