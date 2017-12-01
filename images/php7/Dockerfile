@@ -30,7 +30,7 @@ COPY php-ini-overrides.ini /etc/php/7.1/fpm/conf.d/99-overrides.ini
 # The following startup script contains some magic to clean these up
 COPY php-fpm-startup /usr/bin/php-fpm
 
-ADD src /var/www
+ADD ../../src /var/www
 
 
 CMD /usr/bin/php-fpm
