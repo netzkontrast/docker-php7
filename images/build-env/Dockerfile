@@ -28,7 +28,9 @@ RUN apk add --no-cache \
 
 RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
+ADD composer.json composer.json
 
+RUN composer update
 
 RUN set -ex; \
 # why we use "curl" instead of "wget":
