@@ -26,6 +26,62 @@ RUN apk add --no-cache \
       php -r "unlink('composer-setup.php');"  \
   && aws configure set preview.cloudfront true
 
+
+RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+#    sed -i -e "s/v3.4/edge/" /etc/apk/repositories && \
+    echo /etc/apk/respositories && \
+    apk update && \
+    apk add --no-cache bash \
+    openssh-client \
+    wget \
+    supervisor \
+    libevent-dev \
+    curl \
+    curl-dev \
+    libcurl \
+    python-dev \
+    py-pip \
+    augeas-dev \
+    openssl-dev \
+    ca-certificates \
+    dialog \
+    autoconf \
+    make \
+    gcc \
+    gettext-dev \
+    gettext \
+    musl-dev \
+    linux-headers \
+    libmcrypt-dev \
+    libpng-dev \
+    icu-dev \
+    zeromq \
+    libpq \
+    libxslt-dev \
+    libffi-dev \
+    freetype-dev \
+    sqlite-dev \
+    libjpeg-turbo-dev && \
+    docker-php-ext-configure gd \
+      --with-gd \
+      --with-freetype-dir=/usr/include/ \
+      --with-png-dir=/usr/include/ \
+      --with-jpeg-dir=/usr/include/ && \
+    #curl iconv session
+    docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache curl pcntl gettext sockets && \
+    pecl install xdebug && \
+    pecl install mongodb && \
+    docker-php-source delete && \
+    pip install -U pip
+
+RUN pecl install event
+
+RUN apk add libzmq
+
+RUN apk add zeromq-dev
+
+RUN pecl install zmq-beta
+
 RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ADD composer.json composer.json
