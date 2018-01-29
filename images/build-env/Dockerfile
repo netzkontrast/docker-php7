@@ -5,6 +5,9 @@ ENV TERRAFORM_VERSION 0.11.2
 ENV DOCKER_CHANNEL edge
 ENV DOCKER_VERSION 17.11.0-ce
 ENV AWS_CLI_VERSION 1.14.31
+ENV PACKER_VERSION=1.1.3
+ENV PACKER_SHA256SUM=b7982986992190ae50ab2feb310cb003a2ec9c5dcba19aa8b1ebb0d120e8686f
+
 
 RUN apk add --no-cache \
     python \
@@ -75,6 +78,15 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     pip install -U pip
 
 RUN pecl install event
+
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_SHA256SUMS ./
+
+RUN sed -i '/.*linux_amd64.zip/!d' packer_${PACKER_VERSION}_SHA256SUMS
+RUN sha256sum -cs packer_${PACKER_VERSION}_SHA256SUMS
+RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /bin
+RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
+
 
 RUN apk add libzmq
 
