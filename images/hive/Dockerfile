@@ -184,6 +184,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     libpng-dev \
     icu-dev \
     zeromq \
+    cyrus-sasl-dev \
     libpq \
     libxslt-dev \
     libffi-dev \
