@@ -199,7 +199,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache curl pcntl gettext sockets && \
     pecl install xdebug && \
     pecl install mongodb && \
-    pecl install memcache && \
     pecl install memcached && \
     docker-php-source delete && \
     mkdir -p /etc/nginx && \
