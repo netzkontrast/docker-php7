@@ -80,8 +80,6 @@ RUN pecl install zmq-beta
 RUN apk del gcc musl-dev linux-headers libffi-dev augeas-dev python-dev make autoconf
 
 ADD conf/php-module.ini /usr/local/etc/php/conf.d/php-modules.ini
-ADD conf/supervisord.conf /etc/supervisord.conf
-
 
 ADD scripts/wait-for-it.sh /usr/bin/wait-for-it
 RUN chmod 755 /usr/bin/wait-for-it
